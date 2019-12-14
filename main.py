@@ -1,24 +1,67 @@
 from company import Company
+from startup import startup
 
 
 def add_company(company_name, country):
     comp = Company(company_name, country)
     comp.save()
+    print('DONE')
+
+
+def delete_company(company_name, country):
+    comp = Company(company_name, country)
     comp.remove()
+    print('DONE')
+
+
+def update_company(company_name, country):
+    comp = Company(company_name, country)
+    new_name = input('New name (Leave blank if old name): ')
+    new_country = input('New country (Leave blank if old name): ')
+
+    comp.update(new_name, new_country)
+    print('DONE')
+
+
+def check_company(company_name, country):
+    comp = Company(company_name, country)
+    comp.check()
 
 
 def main():
+    startup()
+
     print('Welcome')
+    print('Commands:',
+          '1-add company_name country',
+          '2-rm company_name country',
+          '3-update company_name country',
+          '4-check company_name country',
+          '5-list\n', sep='\n')
 
     command = input()
     command_list = command.split()
 
-    if command_list[0] == 'add':
-        add_company(command_list[1], command_list[2])
-    if command_list[0] == 'rm':
-        pass
-    if command_list[0] == 'update':
-        pass
+    action = command_list[0]
+
+    if len(command_list) == 3:
+        company_name = command_list[1]
+        country = command_list[2]
+
+        if action == 'add':
+            add_company(company_name, country)
+        elif action == 'rm':
+            delete_company(company_name, country)
+        elif action == 'update':
+            update_company(company_name, country)
+        elif action == 'check':
+            check_company(company_name, country)
+
+    elif len(command_list) == 1:
+        if action == 'list':
+            Company.list_all()
+        elif action == 'exit':
+            exit(0)
 
 
 if __name__ == '__main__':
