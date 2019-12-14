@@ -2,6 +2,32 @@ from company import Company
 from startup import startup
 
 
+def command():
+    user_input = input("\n>>> ")
+    command_list = user_input.split()
+
+    action = command_list[0]
+
+    if len(command_list) == 3:
+        company_name = command_list[1]
+        country = command_list[2]
+
+        if action == 'add':
+            add_company(company_name, country)
+        elif action == 'rm':
+            delete_company(company_name, country)
+        elif action == 'update':
+            update_company(company_name, country)
+        elif action == 'check':
+            check_company(company_name, country)
+
+    elif len(command_list) == 1:
+        if action == 'list':
+            Company.list_all()
+        elif action == 'exit':
+            exit(0)
+
+
 def add_company(company_name, country):
     comp = Company(company_name, country)
     comp.save()
@@ -33,35 +59,14 @@ def main():
 
     print('Welcome')
     print('Commands:',
-          '1-add company_name country',
-          '2-rm company_name country',
-          '3-update company_name country',
-          '4-check company_name country',
-          '5-list\n', sep='\n')
+          'add company_name country',
+          'rm company_name country',
+          'update company_name country',
+          'check company_name country',
+          'list', sep='\n')
 
-    command = input()
-    command_list = command.split()
-
-    action = command_list[0]
-
-    if len(command_list) == 3:
-        company_name = command_list[1]
-        country = command_list[2]
-
-        if action == 'add':
-            add_company(company_name, country)
-        elif action == 'rm':
-            delete_company(company_name, country)
-        elif action == 'update':
-            update_company(company_name, country)
-        elif action == 'check':
-            check_company(company_name, country)
-
-    elif len(command_list) == 1:
-        if action == 'list':
-            Company.list_all()
-        elif action == 'exit':
-            exit(0)
+    while True:
+        command()
 
 
 if __name__ == '__main__':

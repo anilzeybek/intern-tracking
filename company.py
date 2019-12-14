@@ -51,9 +51,9 @@ class Company:
     def check(self):
         _id = self.__find_id()
         if _id:
-            print(f'Company with name {self.name} and country {self.country} exists.')
+            print(f'Yes! Company with name {self.name} and country {self.country} exists.')
         else:
-            print(f'Company with name {self.name} and country {self.country} doesnt exists.')
+            print(f'No! Company with name {self.name} and country {self.country} doesnt exists.')
 
     def __find_id(self):
         connection = sqlite3.connect('data.db')
