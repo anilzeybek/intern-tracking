@@ -74,7 +74,9 @@ def main():
           'rm company_name country',
           'update company_name country',
           'check company_name country',
-          'list', sep='\n')
+          'list',
+          'exit', 
+           sep='\n')
 
     while True:
         command()
