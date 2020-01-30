@@ -1,6 +1,8 @@
 from company import Company
 from startup import startup
 
+import os
+import platform
 
 def command():
     user_input = input("\n>>> ")
@@ -20,12 +22,21 @@ def command():
             update_company(company_name, country)
         elif action == 'check':
             check_company(company_name, country)
+        else:
+            print(f'Command {action} is not a valid action.')
 
     elif len(command_list) == 1:
         if action == 'list':
             Company.list_all()
         elif action == 'exit':
             exit(0)
+        elif action == 'clear':
+            if platform.system() == 'Linux' or platform.system() == 'Darwin':
+                os.system('clear')
+            else:
+                os.system('cls')
+        else:
+            print(f'Command *{action}* is not a valid action.')
 
 
 def add_company(company_name, country):
