@@ -35,6 +35,8 @@ def command():
                 os.system('clear')
             else:
                 os.system('cls')
+        elif action == 'help':
+            print_commands()
         else:
             print(f'Command *{action}* is not a valid action.')
 
@@ -42,22 +44,24 @@ def command():
 def add_company(company_name, country):
     comp = Company(company_name, country)
     comp.save()
-    print('DONE')
 
 
 def delete_company(company_name, country):
     comp = Company(company_name, country)
     comp.remove()
-    print('DONE')
 
 
 def update_company(company_name, country):
     comp = Company(company_name, country)
-    new_name = input('New name (Leave blank if old name): ')
-    new_country = input('New country (Leave blank if old name): ')
+    exist = comp.check_without_print()
+    if exist:
+        new_name = input('New name (Leave blank if old name): ')
+        new_country = input('New country (Leave blank if old name): ')
 
-    comp.update(new_name, new_country)
-    print('DONE')
+        comp.update(new_name, new_country)
+        print('DONE')
+    else:
+        print(f'Company {company_name} from {country} doesnt exist.')
 
 
 def check_company(company_name, country):
@@ -65,18 +69,23 @@ def check_company(company_name, country):
     comp.check()
 
 
-def main():
-    startup()
-
-    print('Welcome')
+def print_commands():
     print('Commands:',
           'add company_name country',
           'rm company_name country',
           'update company_name country',
           'check company_name country',
           'list',
+          'clear',
           'exit', 
            sep='\n')
+
+
+def main():
+    startup()
+
+    print('Welcome')
+    print_commands()
 
     while True:
         command()

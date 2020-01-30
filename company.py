@@ -20,6 +20,7 @@ class Company:
 
             connection.commit()
             connection.close()
+            print('DONE')
 
     def remove(self):
         connection = sqlite3.connect('data.db')
@@ -32,6 +33,8 @@ class Company:
             cursor.execute(query, (self.__find_id(),))
             connection.commit()
             connection.close()
+            print('DONE')
+
         else:
             print(f'Company with name {self.name} and country {self.country} not found.')
 
@@ -47,6 +50,13 @@ class Company:
 
         connection.commit()
         connection.close()
+
+    def check_without_print(self):
+        _id = self.__find_id()
+        if _id:
+            return True
+        else:
+            return False
 
     def check(self):
         _id = self.__find_id()
